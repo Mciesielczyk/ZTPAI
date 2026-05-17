@@ -11,7 +11,17 @@ import { ProductComponent } from './product.component';
   styleUrl: './app.css'
 })
 export class AppComponent {
-  isLoggedIn(): boolean {
+  isLoggedIn = !!localStorage.getItem('token');
+
+  onAuthenticated() {
+    this.isLoggedIn = true;
+  }
+
+  onLoggedOut() {
+    this.isLoggedIn = false;
+  }
+
+  hasToken(): boolean {
     return !!localStorage.getItem('token');
   }
 }

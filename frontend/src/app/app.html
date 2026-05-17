@@ -1,9 +1,7 @@
-<!-- Jeśli token istnieje, wyświetlamy komponent produktów -->
 <div *ngIf="isLoggedIn; else loginView">
   <app-product (loggedOut)="onLoggedOut()"></app-product>
 </div>
 
-<!-- Jeśli tokenu nie ma, wyświetlamy panel logowania/rejestracji -->
 <ng-template #loginView>
   <app-auth (authenticated)="onAuthenticated()"></app-auth>
 </ng-template>

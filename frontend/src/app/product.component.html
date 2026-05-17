@@ -4,7 +4,6 @@
     <button class="btn-logout" (click)="logout()">Wyloguj się</button>
   </div>
 
-  <!-- Formularz widoczny tylko dla zalogowanego ADMINA -->
   <div *ngIf="isAdmin" class="admin-panel">
     <h3>Dodaj nowy produkt (Panel Administratora)</h3>
     <form (ngSubmit)="onAddProduct()">
@@ -27,7 +26,6 @@
     </div>
   </div>
 
-  <!-- Lista wszystkich produktów dostępna dla każdego -->
   <div class="product-list">
     <h3>Dostępne produkty:</h3>
     <div *ngIf="products.length === 0">Brak produktów w bazie.</div>
