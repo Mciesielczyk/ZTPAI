@@ -1,4 +1,4 @@
-# Demo - Spring Boot + Angular
+# Spring Boot + Angular
 
 Projekt demonstracyjny z backendem w Spring Boot i frontendem w Angularze.
 Backend udostepnia API do logowania, rejestracji i zarzadzania produktami, a frontend pozwala zalogowac sie i dla uzytkownika z rola `ADMIN` - dodac nowy produkt.
