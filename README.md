@@ -1,7 +1,7 @@
 # Demo - Spring Boot + Angular
 
 Projekt demonstracyjny z backendem w Spring Boot i frontendem w Angularze.
-Backend udostepnia API do logowania, rejestracji i zarzadzania produktami, a frontend pozwala zalogowac sie, pobrac liste produktow i - dla uzytkownika z rola `ADMIN` - dodac nowy produkt.
+Backend udostepnia API do logowania, rejestracji i zarzadzania produktami, a frontend pozwala zalogowac sie i dla uzytkownika z rola `ADMIN` - dodac nowy produkt.
 
 ## Struktura projektu
 
@@ -166,7 +166,6 @@ albo:
 ng serve
 ```
 
-Frontend korzysta z proxy Angulara i wysyla requesty na wzgledne adresy `/api/...`, ktore sa przekierowywane do backendu.
 
 ## Konfiguracja backendu
 
@@ -213,18 +212,27 @@ Authorization: Bearer <token>
 
 ### Ocena 3.0
 
-W tym projekcie jest to zrealizowane tak:
+- dziala backend Spring Boot
+- projekt laczy sie z baza danych H2
+- istnieja operacje na encjach przez REST API
+- demo video
+
+Jak dokładnie:
 
 - `Spring Boot` startuje aplikacje i udostepnia REST API.
 - Polaczenie z baza jest w `src/main/resources/application.properties` przez `jdbc:h2:mem:testdb`.
 - Encja glowna to `Product` z JPA, a dane sa zapisywane przez `ProductRepository`.
-- Podstawowe dzialanie pokazuje frontend Angular:
-  - logowanie/rejestracja w `frontend/src/app/auth.component.ts`
-  - lista produktow w `frontend/src/app/product.component.ts`
+
 
 ### Ocena 4.0
 
-To jest rozwiazane konkretnie w nastepujacy sposob:
+- zachowana jest struktura warstwowa `controller / service / repository`
+- dane wejscia i wyjscia sa opisane przez DTO
+- pola sa walidowane przez adnotacje `jakarta.validation`
+- obsluga bledow zwraca czytelne odpowiedzi HTTP
+- zabezpieczenie dziala na bazie JWT
+
+Jak dokładnie:
 
 - `Controller / Service / Repository`
   - `AuthController` przyjmuje requesty `/api/auth/register` i `/api/auth/login`
@@ -248,7 +256,12 @@ To jest rozwiazane konkretnie w nastepujacy sposob:
 
 ### Ocena 5.0
 
-Tutaj projekt wykorzystuje dodatkowe elementy w taki sposob:
+- testy jednostkowe serwisow
+- event po rejestracji uzytkownika
+- frontend Angular konsumujacy API
+- kod jest podzielony na czytelne warstwy i klasy odpowiedzialnosci
+
+Jak dokładnie:
 
 - Testy jednostkowe
   - testy dla `ProductService` sprawdzaja zapis, wyszukiwanie i walidacje
@@ -269,16 +282,4 @@ Tutaj projekt wykorzystuje dodatkowe elementy w taki sposob:
   - endpointy w `controller`
   - auth w `security`
 
-### Uwaga o CRUD
 
-Jesli prowadzacy wymaga doslownie pelnego CRUD dla jednej encji, to trzeba dopisac jeszcze `update` przez `PUT` albo `PATCH`.
-Aktualnie projekt ma:
-
-- `Create` - `POST /api/products`
-- `Read` - `GET /api/products`
-- `Read one` - metoda `getProductById(Long id)` istnieje w `ProductService`, ale nie jest wystawiona jako endpoint REST
-- `Delete` - brak endpointu `DELETE` dla `Product`; usuniecie jest zrobione osobno dla `Person`
-
-## Jak to opisac krotko na obronie
-
-> Aplikacja ma backend w Spring Boot z REST API, baza to H2 w pamieci, dane sa walidowane przez DTO i adnotacje Jakarta Validation, a dostep do zasobow chroni JWT. Warstwy sa rozdzielone na controller, service i repository. Dodatkowo jest event po rejestracji uzytkownika, testy jednostkowe serwisow oraz frontend Angular, ktory konsumuje API.
